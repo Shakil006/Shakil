@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shakil Ahmed — Research Timeline Spring 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --j02: #E05A1A; --j01: #1B6DC8; --rob: #0E8E58;
+    --j02-light: #FFF1EB; --j01-light: #EBF4FF; --rob-light: #EAFAF3;
+    --j02-mid: #FFD4C0; --j01-mid: #C0DEFF; --rob-mid: #A8EDD3;
+    --surface: #F2F2EE; --white: #FFFFFF; --text: #0D0D1C;
+    --muted: #4A4A60; --border: #D2D2DE;
+    --shadow: 0 2px 16px rgba(0,0,0,0.07); --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'DM Sans',sans-serif; background:var(--surface); color:var(--text); min-height:100vh; padding-bottom:80px; }
+
+  header {
+    background:var(--white); border-bottom:1px solid var(--border);
+    padding:26px 48px 22px; position:sticky; top:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:24px; flex-wrap:wrap; box-shadow:0 1px 12px rgba(0,0,0,0.05);
+  }
+  .header-left { display:flex; align-items:center; gap:16px; }
+  .avatar {
+    width:46px; height:46px; border-radius:50%;
+    background:linear-gradient(135deg,#1A1A2E 0%,#3A4A7A 100%);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-size:1rem; font-weight:800; color:#fff;
+    flex-shrink:0; letter-spacing:-0.02em; box-shadow:0 2px 10px rgba(26,26,46,0.25);
+  }
+  .header-text h1 {
+    font-family:'Fraunces',serif; font-size:1.5rem; font-weight:800;
+    color:var(--text); letter-spacing:-0.02em; line-height:1.1;
+  }
+  .header-text .subtitle { display:flex; align-items:center; gap:8px; margin-top:4px; }
+  .header-text .subtitle span { font-size:0.75rem; color:var(--muted); font-weight:400; letter-spacing:0.04em; text-transform:uppercase; }
+  .season-badge {
+    font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;
+    padding:2px 10px; border-radius:100px;
+    background:linear-gradient(135deg,#E8F5FF,#D0EAFF); color:#0C4488;
+    border:1px solid #C0DEFF;
+  }
+
+  .filters { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .filter-label { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:#4A4A60; font-weight:600; margin-right:4px; }
+  .chip {
+    display:flex; align-items:center; gap:6px; padding:6px 14px;
+    border-radius:100px; font-size:0.8rem; font-weight:500; cursor:pointer;
+    border:1.5px solid transparent; transition:all 0.2s ease; user-select:none; white-space:nowrap;
+  }
+  .chip-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+  .chip-j02 { background:var(--j02-light); color:var(--j02); border-color:var(--j02-mid); }
+  .chip-j01 { background:var(--j01-light); color:var(--j01); border-color:var(--j01-mid); }
+  .chip-rob { background:var(--rob-light); color:var(--rob); border-color:var(--rob-mid); }
+  .chip-all { background:var(--text); color:#fff; border-color:var(--text); }
+  .chip.inactive { opacity:0.35; filter:grayscale(0.5); }
+  .chip:hover { transform:translateY(-1px); box-shadow:0 3px 10px rgba(0,0,0,0.1); }
+
+  .cards-row {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+    padding:32px 48px 0; max-width:1400px; margin:0 auto;
+  }
+  .jcard {
+    background:var(--white); border-radius:16px; padding:22px 24px;
+    border:1.5px solid var(--border); box-shadow:var(--shadow);
+    transition:all 0.25s ease; position:relative; overflow:hidden;
+  }
+  .jcard::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; border-radius:16px 16px 0 0; }
+  .jcard-j02::before { background:var(--j02); }
+  .jcard-j01::before { background:var(--j01); }
+  .jcard-rob::before { background:var(--rob); }
+  .jcard.dimmed { opacity:0.35; }
+  .jcard:hover { box-shadow:var(--shadow-lg); transform:translateY(-2px); }
+  .jcard-tag { font-size:0.68rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:6px; }
+  .jcard-j02 .jcard-tag { color:#922800; } .jcard-j01 .jcard-tag { color:#0A3A84; } .jcard-rob .jcard-tag { color:#0A5030; }
+  .jcard h3 { font-family:'Fraunces',serif; font-size:1rem; font-weight:600; margin-bottom:12px; line-height:1.3; color:var(--text); }
+  .jcard-deadline { display:flex; align-items:center; gap:6px; font-size:0.75rem; color:var(--muted); margin-bottom:14px; }
+  .jcard-deadline strong { color:var(--text); font-weight:600; }
+
+  .progress-bar-wrap { background:var(--border); border-radius:100px; height:7px; overflow:hidden; margin-bottom:8px; }
+  .progress-bar-fill { height:100%; border-radius:100px; transition:width 0.55s cubic-bezier(0.4,0,0.2,1); }
+  .jcard-j02 .progress-bar-fill { background:linear-gradient(90deg,#FF6B35,#FF9A70); }
+  .jcard-j01 .progress-bar-fill { background:linear-gradient(90deg,#4A90D9,#7DB5F0); }
+  .jcard-rob .progress-bar-fill { background:linear-gradient(90deg,#27AE7A,#55D4A0); }
+
+  .progress-label { display:flex; justify-content:space-between; align-items:center; font-size:0.7rem; color:var(--muted); }
+  .pct { font-weight:700; font-size:0.88rem; transition:all 0.3s ease; }
+  .jcard-j02 .pct { color:var(--j02); } .jcard-j01 .pct { color:var(--j01); } .jcard-rob .pct { color:var(--rob); }
+
+  .timeline-wrap { padding:24px 48px 0; max-width:1400px; margin:0 auto; }
+
+  .month-block { margin-bottom:12px; border-radius:16px; overflow:hidden; border:1.5px solid var(--border); background:var(--white); box-shadow:var(--shadow); }
+  .month-header { display:flex; align-items:center; justify-content:space-between; padding:18px 28px; cursor:pointer; user-select:none; transition:background 0.2s; }
+  .month-header:hover { background:#F5F5FA; }
+  .month-title { display:flex; align-items:center; gap:14px; }
+  .month-title h2 { font-family:'Fraunces',serif; font-size:1.15rem; font-weight:600; color:var(--text); }
+  .month-badge { font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; padding:3px 10px; border-radius:100px; background:var(--surface); color:#4A4A62; border:1px solid var(--border); }
+  .month-weeks-count { font-size:0.75rem; color:var(--muted); }
+  .month-right { display:flex; align-items:center; gap:12px; }
+  .chevron { width:28px; height:28px; border-radius:50%; background:var(--surface); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; transition:transform 0.3s ease, background 0.2s; color:#4A4A62; font-size:11px; }
+  .month-block.open .chevron { transform:rotate(180deg); background:var(--text); color:white; border-color:var(--text); }
+  .month-body { display:none; border-top:1px solid var(--border); padding:4px 0 16px; }
+  .month-block.open .month-body { display:block; }
+
+  .week-row { padding:14px 28px; display:grid; grid-template-columns:110px 1fr; gap:20px; align-items:start; border-bottom:1px solid #F0F0F5; transition:background 0.15s; }
+  .week-row:last-child { border-bottom:none; }
+  .week-row:hover { background:#FAFAFD; }
+  .week-label { font-size:0.72rem; font-weight:600; color:#4A4A62; text-transform:uppercase; letter-spacing:0.07em; padding-top:3px; white-space:nowrap; }
+  .week-label .dates { display:block; font-size:0.67rem; font-weight:400; margin-top:2px; color:#8888A0; text-transform:none; letter-spacing:0; }
+  .tasks-row { display:flex; flex-wrap:wrap; gap:8px; }
+
+  .task-pill {
+    position:relative; display:inline-flex; align-items:center; gap:6px;
+    padding:5px 12px; border-radius:8px; font-size:0.78rem; font-weight:500;
+    cursor:pointer; transition:all 0.2s ease; border:1.5px solid transparent; user-select:none;
+  }
+  .task-pill:hover { transform:translateY(-1px); box-shadow:0 4px 14px rgba(0,0,0,0.12); }
+  .task-pill.hidden { display:none; }
+  .task-pill-j02 { background:var(--j02-light); color:#A83510; border-color:var(--j02-mid); }
+  .task-pill-j01 { background:var(--j01-light); color:#0E4A8A; border-color:var(--j01-mid); }
+  .task-pill-rob { background:var(--rob-light); color:#0F6644; border-color:var(--rob-mid); }
+
+  .task-pill.done {
+    opacity:0.45; filter:grayscale(0.5);
+    text-decoration:line-through; transform:none !important;
+    box-shadow:none !important;
+  }
+  .task-pill.done:hover { cursor:pointer; }
+  .check-badge {
+    display:none; font-size:0.65rem; font-weight:700; margin-left:2px;
+  }
+  .task-pill.done .check-badge { display:inline; }
+  .task-icon { font-size:0.82rem; }
+
+  .tooltip {
+    position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%);
+    background:var(--text); color:#fff; font-size:0.72rem; font-weight:400;
+    line-height:1.5; padding:8px 12px; border-radius:10px; width:max-content;
+    max-width:240px; white-space:normal; z-index:1000; pointer-events:none;
+    opacity:0; transition:opacity 0.18s ease; box-shadow:0 4px 20px rgba(0,0,0,0.25);
+  }
+  .tooltip::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:var(--text); }
+  .task-pill:not(.done):hover .tooltip { opacity:1; }
+
+  .milestone-pill { display:inline-flex; align-items:center; gap:5px; font-size:0.72rem; font-weight:600; padding:4px 10px; border-radius:6px; text-transform:uppercase; letter-spacing:0.05em; cursor:default; }
+  .milestone-j02 { background:var(--j02); color:#fff; }
+  .milestone-j01 { background:var(--j01); color:#fff; }
+  .milestone-rob { background:var(--rob); color:#fff; }
+  .milestone-pill.hidden { display:none; }
+
+  .month-pips { display:flex; gap:4px; align-items:center; }
+  .pip { width:8px; height:8px; border-radius:50%; }
+
+  .legend-bar { display:flex; gap:20px; align-items:center; padding:18px 48px 8px; flex-wrap:wrap; max-width:1400px; margin:0 auto; }
+  .legend-item { display:flex; align-items:center; gap:6px; font-size:0.75rem; color:var(--muted); }
+  .legend-dot { width:9px; height:9px; border-radius:50%; }
+
+  #toast {
+    position:fixed; bottom:32px; left:50%;
+    transform:translateX(-50%) translateY(20px);
+    background:var(--text); color:white; font-size:0.8rem; font-weight:500;
+    padding:10px 22px; border-radius:100px; box-shadow:0 4px 24px rgba(0,0,0,0.22);
+    opacity:0; transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+    pointer-events:none; z-index:9999; white-space:nowrap;
+  }
+  #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+  @media (max-width:900px) {
+    header,.cards-row,.timeline-wrap,.legend-bar { padding-left:20px; padding-right:20px; }
+    .cards-row { grid-template-columns:1fr; }
+    .week-row { grid-template-columns:80px 1fr; gap:12px; }
+    .month-weeks-count { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="avatar">SA</div>
+    <div class="header-text">
+      <h1>Shakil Ahmed</h1>
+      <div class="subtitle">
+        <span>Research Timeline · 13 Weeks</span>
+        <span class="season-badge">🌱 Spring 2026</span>
+      </div>
+    </div>
+  </div>
+  <div class="filters">
+    <span class="filter-label">Filter:</span>
+    <div class="chip chip-all" data-filter="all" onclick="setFilter('all')">All Journals</div>
+    <div class="chip chip-j02" data-filter="j02" onclick="setFilter('j02')">
+      <span class="chip-dot" style="background:var(--j02)"></span>Journal 02
+    </div>
+    <div class="chip chip-j01" data-filter="j01" onclick="setFilter('j01')">
+      <span class="chip-dot" style="background:var(--j01)"></span>Journal 01
+    </div>
+    <div class="chip chip-rob" data-filter="rob" onclick="setFilter('rob')">
+      <span class="chip-dot" style="background:var(--rob)"></span>Robotic Journal
+    </div>
+  </div>
+</header>
+
+<div class="cards-row">
+  <div class="jcard jcard-j02" data-card="j02" id="card-j02">
+    <div class="jcard-tag">Journal 02</div>
+    <h3>Draft Polish &amp; Submission</h3>
+    <div class="jcard-deadline">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Deadline: <strong>March 31, 2026</strong>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="bar-j02" style="width:0%"></div></div>
+    <div class="progress-label">
+      <span id="done-j02" style="font-size:0.7rem;color:#5A5A70">0 / 0 tasks done</span>
+      <span class="pct" id="pct-j02">0%</span>
+    </div>
+  </div>
+
+  <div class="jcard jcard-rob" data-card="rob" id="card-rob">
+    <div class="jcard-tag">Robotic Journal</div>
+    <h3>Phase-2 Writing &amp; Submission</h3>
+    <div class="jcard-deadline">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Deadline: <strong>May 1–7, 2026</strong>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="bar-rob" style="width:0%"></div></div>
+    <div class="progress-label">
+      <span id="done-rob" style="font-size:0.7rem;color:#5A5A70">0 / 0 tasks done</span>
+      <span class="pct" id="pct-rob">0%</span>
+    </div>
+  </div>
+
+  <div class="jcard jcard-j01" data-card="j01" id="card-j01">
+    <div class="jcard-tag">Journal 01</div>
+    <h3>Full Paper — Methods to Conclusion</h3>
+    <div class="jcard-deadline">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Deadline: <strong>May 30, 2026</strong>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="bar-j01" style="width:0%"></div></div>
+    <div class="progress-label">
+      <span id="done-j01" style="font-size:0.7rem;color:#5A5A70">0 / 0 tasks done</span>
+      <span class="pct" id="pct-j01">0%</span>
+    </div>
+  </div>
+</div>
+
+<div class="legend-bar">
+  <div class="legend-item"><span class="legend-dot" style="background:var(--j02)"></span> Journal 02</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--j01)"></span> Journal 01</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--rob)"></span> Robotic Journal</div>
+  <div class="legend-item" style="margin-left:4px; font-style:italic; color:#7070A0;">
+    👆 Click any task to mark done · click again to undo
+  </div>
+</div>
+
+  <!-- OVERALL SPRINT PROGRESS -->
+  <div style="max-width:1400px;margin:0 auto 4px;padding:0 48px;">
+    <div style="background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:14px 24px;box-shadow:var(--shadow);display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+      <span style="font-family:'Fraunces',serif;font-size:0.88rem;font-weight:700;color:#1A1A2E;white-space:nowrap;">Sprint Progress</span>
+      <div style="flex:1;min-width:160px;"><div style="background:var(--border);border-radius:100px;height:8px;overflow:hidden;"><div id="bar-overall" style="height:100%;border-radius:100px;background:linear-gradient(90deg,#FF6B35 0%,#4A90D9 50%,#27AE7A 100%);width:0%;transition:width 0.55s cubic-bezier(0.4,0,0.2,1);"></div></div></div>
+      <span id="pct-overall" style="font-size:0.9rem;font-weight:800;color:#1A1A2E;min-width:38px;">0%</span>
+      <span id="done-overall" style="font-size:0.72rem;color:#52526A;white-space:nowrap;">0 / 0 tasks complete</span>
+    </div>
+  </div>
+
+<div class="timeline-wrap" id="timeline">
+
+  <!-- MARCH -->
+  <div class="month-block open" id="month-march">
+    <div class="month-header" onclick="toggleMonth('march')">
+      <div class="month-title">
+        <h2>March 2026</h2>
+        <span class="month-badge">Weeks 1–4</span>
+        <span class="month-weeks-count">Critical: J02 submission</span>
+      </div>
+      <div class="month-right">
+        <div class="month-pips">
+          <div class="pip" style="background:var(--j02);opacity:1"></div>
+          <div class="pip" style="background:var(--rob);opacity:0.7"></div>
+          <div class="pip" style="background:var(--j01);opacity:0.5"></div>
+        </div>
+        <div class="chevron">▾</div>
+      </div>
+    </div>
+    <div class="month-body">
+      <div class="week-row">
+        <div class="week-label">Week 1<span class="dates">Mar 2–8</span></div>
+        <div class="tasks-row">
+          <div class="task-pill task-pill-j02 filter-j02" data-journal="j02" onclick="toggleTask(this)">
+            <span class="task-icon">📝</span> Review Prof. Remarks<span class="check-badge">✓</span>
+            <div class="tooltip">Read through all professor feedback carefully. Annotate each comment and categorize revisions needed.</div>
+          </div>
+          <div class="task-pill task-pill-j02 filter-j02" data-journal="j02" onclick="toggleTask(this)">
+            <span class="task-icon">📋</span> Revision Checklist<span class="check-badge">✓</span>
+            <div class="tooltip">Create a structured checklist from professor's final remarks. Prioritize by urgency and section.</div>
+          </div>
+          <div class="task-pill task-pill-rob filter-rob" data-journal="rob" onclick="toggleTask(this)">
+            <span class="task-icon">🔬</span> Begin Methods Draft<span class="check-badge">✓</span>
+            <div class="tooltip">Start writing the Methodology section for Robotic Journal. Describe experimental setup and Phase-1 evaluation approach.</div>
+          </div>
+          <div class="task-pill task-pill-j01 filter-j01" data-journal="j01" onclick="toggleTask(this)">
+            <span class="task-icon">🗂️</span> J01 Paper Outline<span class="check-badge">✓</span>
+            <div class="tooltip">Draft a full structural outline for Journal 01: Methods → Results → Discussion → Conclusion.</div>
+          </div>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-label">Week 2<span class="dates">Mar 9–15</span></div>
+        <div class="tasks-row">
+          <div class="task-pill task-pill-j02 filter-j02" data-journal="j02" onclick="toggleTask(this)">
+            <span class="task-icon">✏️</span> Apply Major Revisions<span class="check-badge">✓</span>
+            <div class="tooltip">Implement all major structural and content revisions to Journal 02 based on professor's notes.</div>
+          </div>
+          <div class="task-pill task-pill-j02 filter-j02" data-journal="j02" onclick="toggleTask(this)">
+            <span class="task-icon">📊</span> Fix Tables &amp; Figures<span class="check-badge">✓</span>
+            <div class="tooltip">Update all figures, tables, and captions as requested. Ensure consistent formatting throughout.</div>
+          </div>
+          <div class="task-pill task-pill-rob filter-rob" data-journal="rob" onclick="toggleTask(this)">
+            <span class="task-icon">📐</span> Methods — Detail<span class="check-badge">✓</span>
+            <div class="tooltip">Expand methods with detailed protocol descriptions, hardware specs, and software/algorithm references.</div>
+          </div>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-label">Week 3<span class="dates">Mar 16–22</span></div>
+        <div class="tasks-row">
+          <div class="task-pill task-pill-j02 filter-j02" data-journal="j02" onclick="toggleTask(this)">
+            <span class="task-icon">🔍</span> Minor Edits &amp; Polish<span class="check-badge">✓</span>
+            <div class="tooltip">Address all minor revisions: grammar, citation formats, minor wording changes. Run a final spell-check.</div>
+          </div>
+          <div class="task-pill task-pill-j02 filter-j02" data-journal="j02" onclick="toggleTask(this)">
+            <span class="task-icon">📎</span> Format &amp; References<span class="check-badge">✓</span>
+            <div class="tooltip">Final check of all in-text citations and reference list. Verify DOIs, journal names, and publication years.</div>
+          </div>
+          <div class="task-pill task-pill-rob filter-rob" data-journal="rob" onclick="toggleTask(this)">
+            <span class="task-icon">📈</span> Phase-2 Results Draft<span class="check-badge">✓</span>
+            <div class="tooltip">Begin drafting Phase-2 results section. Present quantitative outcomes from best-method in Phase-1.</div>
+          </div>
+          <div class="task-pill task-pill-j01 filter-j01" data-journal="j01" onclick="toggleTask(this)">
+            <span class="task-icon">🔭</span> J01 Methods — Draft<span class="check-badge">✓</span>
+            <div class="tooltip">Write the full Methods section for Journal 01. Document research design, data collection, and analysis techniques.</div>
+          </div>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-label">Week 4<span class="dates">Mar 23–31</span></div>
+        <div class="tasks-row">
+          <div class="task-pill task-pill-j02 filter-j02" data-journal="j02" onclick="toggleTask(this)">
+            <span class="task-icon">👀</span> Final Proofread<span class="check-badge">✓</span>
+            <div class="tooltip">Complete end-to-end proofread of the manuscript. Have a colleague review the abstract and conclusion.</div>
+          </div>
+          <div class="task-pill task-pill-j02 filter-j02" data-journal="j02" onclick="toggleTask(this)">
+            <span class="task-icon">📤</span> Prepare Submission Files<span class="check-badge">✓</span>
+            <div class="tooltip">Compile all required submission files: main manuscript, cover letter, author statement, figures.</div>
+          </div>
+          <span class="milestone-pill milestone-j02 filter-j02">🏁 J02 Submit by Mar 31</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APRIL -->
+  <div class="month-block open" id="month-april">
+    <div class="month-header" onclick="toggleMonth('april')">
+      <div class="month-title">
+        <h2>April 2026</h2>
+        <span class="month-badge">Weeks 5–9</span>
+        <span class="month-weeks-count">Robotic Journal push + J01 drafting</span>
+      </div>
+      <div class="month-right">
+        <div class="month-pips">
+          <div class="pip" style="background:var(--rob);opacity:1"></div>
+          <div class="pip" style="background:var(--j01);opacity:0.9"></div>
+        </div>
+        <div class="chevron">▾</div>
+      </div>
+    </div>
+    <div class="month-body">
+      <div class="week-row">
+        <div class="week-label">Week 5<span class="dates">Apr 1–6</span></div>
+        <div class="tasks-row">
+          <div class="task-pill task-pill-rob filter-rob" data-journal="rob" onclick="toggleTask(this)">
+            <span class="task-icon">📊</span> Results — Finalize<span class="check-badge">✓</span>
+            <div class="tooltip">Finalize all results tables and figures. Cross-check statistical outputs. Include comparative analysis with Phase-1 baseline.</div>
+          </div>
+          <div class="task-pill task-pill-j01 filter-j01" data-journal="j01" onclick="toggleTask(this)">
+            <span class="task-icon">🔬</span> J01 Results — Start<span class="check-badge">✓</span>
+            <div class="tooltip">Begin writing the Results section for Journal 01. Present findings clearly with tables, figures, and statistical summaries.</div>
+          </div>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-label">Week 6<span class="dates">Apr 7–13</span></div>
+        <div class="tasks-row">
+          <div class="task-pill task-pill-rob filter-rob" data-journal="rob" onclick="toggleTask(this)">
+            <span class="task-icon">💬</span> Discussion Draft<span class="check-badge">✓</span>
+            <div class="tooltip">Write the Discussion section interpreting Phase-2 results in context of the literature. Address limitations and compare with prior work.</div>
+          </div>
+          <div class="task-pill task-pill-j01 filter-j01" data-journal="j01" onclick="toggleTask(this)">
+            <span class="task-icon">📉</span> J01 Results — Complete<span class="check-badge">✓</span>
+            <div class="tooltip">Complete the Results section for Journal 01. Ensure all hypotheses are addressed with supporting data.</div>
+          </div>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-label">Week 7<span class="dates">Apr 14–20</span></div>
+        <div class="tasks-row">
+          <div class="task-pill task-pill-rob filter-rob" data-journal="rob" onclick="toggleTask(this)">
+            <span class="task-icon">📝</span> Robotic Conclusion<span class="check-badge">✓</span>
+            <div class="tooltip">Draft the Conclusion section: summarize key contributions, future work, and practical implications.</div>
+          </div>
+          <div class="task-pill task-pill-rob filter-rob" data-journal="rob" onclick="toggleTask(this)">
+            <span class="task-icon">✍️</span> Abstract Revision<span class="check-badge">✓</span>
+            <div class="tooltip">Rewrite/refine the Abstract to reflect the now-complete paper. Ensure it covers purpose, methods, key results, and conclusion in ~250 words.</div>
+          </div>
+          <div class="task-pill task-pill-j01 filter-j01" data-journal="j01" onclick="toggleTask(this)">
+            <span class="task-icon">💡</span> J01 Discussion — Draft<span class="check-badge">✓</span>
+            <div class="tooltip">Begin Discussion for Journal 01. Interpret results in context, compare with literature, explain unexpected findings.</div>
+          </div>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-label">Week 8<span class="dates">Apr 21–27</span></div>
+        <div class="tasks-row">
+          <div class="task-pill task-pill-rob filter-rob" data-journal="rob" onclick="toggleTask(this)">
+            <span class="task-icon">🔗</span> References &amp; Format<span class="check-badge">✓</span>
+            <div class="tooltip">Compile and format all references. Verify citations are consistent. Match journal's style guide for headings, spacing, and figure labels.</div>
+          </div>
+          <div class="task-pill task-pill-rob filter-rob" data-journal="rob" onclick="toggleTask(this)">
+            <span class="task-icon">🔍</span> Full Proofread<span class="check-badge">✓</span>
+            <div class="tooltip">Proofread the entire manuscript from Introduction through Conclusion. Ensure consistency of terminology and smooth transitions.</div>
+          </div>
+          <div class="task-pill task-pill-j01 filter-j01" data-journal="j01" onclick="toggleTask(this)">
+            <span class="task-icon">💬</span> J01 Discussion — Complete<span class="check-badge">✓</span>
+            <div class="tooltip">Finalize the Discussion section for Journal 01. Ensure interpretation is grounded in evidence and connects to research questions.</div>
+          </div>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-label">Week 9<span class="dates">Apr 28–30</span></div>
+        <div class="tasks-row">
+          <div class="task-pill task-pill-rob filter-rob" data-journal="rob" onclick="toggleTask(this)">
+            <span class="task-icon">📤</span> Final Files Package<span class="check-badge">✓</span>
+            <div class="tooltip">Prepare final submission package: cover letter, author declaration, figures as separate uploads. Upload to portal and confirm receipt.</div>
+          </div>
+          <span class="milestone-pill milestone-rob filter-rob">🏁 Robotic Submit Apr 30</span>
+          <div class="task-pill task-pill-j01 filter-j01" data-journal="j01" onclick="toggleTask(this)">
+            <span class="task-icon">🏁</span> J01 Conclusion — Draft<span class="check-badge">✓</span>
+            <div class="tooltip">Write the Conclusion section for Journal 01. Synthesize key findings, restate significance, and suggest future research directions.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAY -->
+  <div class="month-block open" id="month-may">
+    <div class="month-header" onclick="toggleMonth('may')">
+      <div class="month-title">
+        <h2>May 2026</h2>
+        <span class="month-badge">Weeks 10–13</span>
+        <span class="month-weeks-count">Final: Robotic buffer + J01 submission</span>
+      </div>
+      <div class="month-right">
+        <div class="month-pips">
+          <div class="pip" style="background:var(--rob);opacity:0.5"></div>
+          <div class="pip" style="background:var(--j01);opacity:1"></div>
+        </div>
+        <div class="chevron">▾</div>
+      </div>
+    </div>
+    <div class="month-body">
+      <div class="week-row">
+        <div class="week-label">Week 10<span class="dates">May 1–7</span></div>
+        <div class="tasks-row">
+          <span class="milestone-pill milestone-rob filter-rob">🏁 Robotic Buffer Deadline</span>
+          <div class="task-pill task-pill-rob filter-rob" data-journal="rob" onclick="toggleTask(this)">
+            <span class="task-icon">🔁</span> Final Backup Submit<span class="check-badge">✓</span>
+            <div class="tooltip">If not submitted Apr 30, this is your hard buffer deadline. Submit Robotic Journal no later than May 7.</div>
+          </div>
+          <div class="task-pill task-pill-j01 filter-j01" data-journal="j01" onclick="toggleTask(this)">
+            <span class="task-icon">✏️</span> J01 Conclusion — Polish<span class="check-badge">✓</span>
+            <div class="tooltip">Refine the Conclusion section. Ensure it doesn't introduce new information and clearly communicates the study's contribution.</div>
+          </div>
+          <div class="task-pill task-pill-j01 filter-j01" data-journal="j01" onclick="toggleTask(this)">
+            <span class="task-icon">🧩</span> J01 Abstract Draft<span class="check-badge">✓</span>
+            <div class="tooltip">Write the Abstract for Journal 01. Cover background, objective, methods summary, key results, and conclusion in ~250 words.</div>
+          </div>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-label">Week 11<span class="dates">May 8–14</span></div>
+        <div class="tasks-row">
+          <div class="task-pill task-pill-j01 filter-j01" data-journal="j01" onclick="toggleTask(this)">
+            <span class="task-icon">🔗</span> References &amp; Citations<span class="check-badge">✓</span>
+            <div class="tooltip">Compile the full reference list. Use a reference manager (Zotero/Mendeley). Verify all in-text citations match bibliography.</div>
+          </div>
+          <div class="task-pill task-pill-j01 filter-j01" data-journal="j01" onclick="toggleTask(this)">
+            <span class="task-icon">📊</span> Tables &amp; Figures<span class="check-badge">✓</span>
+            <div class="tooltip">Create, finalize, and label all tables and figures. Export in the resolution and format required. Write informative captions.</div>
+          </div>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-label">Week 12<span class="dates">May 15–21</span></div>
+        <div class="tasks-row">
+          <div class="task-pill task-pill-j01 filter-j01" data-journal="j01" onclick="toggleTask(this)">
+            <span class="task-icon">🔍</span> Full Manuscript Review<span class="check-badge">✓</span>
+            <div class="tooltip">Complete read-through from Abstract to Conclusion. Check logical flow, terminology consistency, and journal guideline adherence.</div>
+          </div>
+          <div class="task-pill task-pill-j01 filter-j01" data-journal="j01" onclick="toggleTask(this)">
+            <span class="task-icon">🤝</span> Peer / Self-Review<span class="check-badge">✓</span>
+            <div class="tooltip">Send to a trusted colleague for feedback, or perform a critical self-review focused on clarity and strength of evidence.</div>
+          </div>
+        </div>
+      </div>
+      <div class="week-row">
+        <div class="week-label">Week 13<span class="dates">May 22–30</span></div>
+        <div class="tasks-row">
+          <div class="task-pill task-pill-j01 filter-j01" data-journal="j01" onclick="toggleTask(this)">
+            <span class="task-icon">✅</span> Final Edits<span class="check-badge">✓</span>
+            <div class="tooltip">Apply all feedback from review. Make final language improvements. Ensure the abstract accurately reflects the full paper.</div>
+          </div>
+          <div class="task-pill task-pill-j01 filter-j01" data-journal="j01" onclick="toggleTask(this)">
+            <span class="task-icon">📤</span> Submission Package<span class="check-badge">✓</span>
+            <div class="tooltip">Prepare all submission materials: manuscript PDF, cover letter, author contributions, conflict of interest declaration, and supplementary files.</div>
+          </div>
+          <span class="milestone-pill milestone-j01 filter-j01">🏁 J01 Submit May 30</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+  let activeFilter = 'all';
+
+  function countTasks(j) { return document.querySelectorAll('.task-pill[data-journal="'+j+'"]').length; }
+  function countDone(j)  { return document.querySelectorAll('.task-pill[data-journal="'+j+'"].done').length; }
+
+  function updateProgress(j) {
+    const total = countTasks(j), done = countDone(j);
+    const pct = total === 0 ? 0 : Math.round(done / total * 100);
+    document.getElementById('bar-'+j).style.width = pct + '%';
+    document.getElementById('pct-'+j).textContent = pct + '%';
+    document.getElementById('done-'+j).textContent = done + ' / ' + total + ' tasks done';
+    // pulse card
+    const card = document.getElementById('card-'+j);
+    const colors = {j02:'#FF6B35',j01:'#4A90D9',rob:'#27AE7A'};
+    card.style.boxShadow = '0 0 0 3px ' + colors[j] + '44, 0 8px 40px rgba(0,0,0,0.12)';
+    setTimeout(() => card.style.boxShadow = '', 700);
+    updateOverall();
+  }
+
+  function toggleTask(el) {
+    const j = el.dataset.journal;
+    const wasDone = el.classList.contains('done');
+    el.classList.toggle('done');
+    updateProgress(j);
+    const rawText = el.childNodes[1] ? el.childNodes[1].textContent.trim() : '';
+    showToast(wasDone ? '↩  Marked undone' : '✓  Task complete!');
+  }
+
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+  }
+
+  function setFilter(filter) {
+    activeFilter = filter;
+    document.querySelectorAll('.chip').forEach(c => c.classList.toggle('inactive', c.dataset.filter !== filter));
+    document.querySelectorAll('.task-pill, .milestone-pill').forEach(el => {
+      el.classList.toggle('hidden', filter !== 'all' && !el.classList.contains('filter-' + filter));
+    });
+    document.querySelectorAll('.jcard').forEach(card => {
+      card.classList.toggle('dimmed', filter !== 'all' && card.dataset.card !== filter);
+    });
+  }
+
+  function updateOverall() {
+    var total = ['j02','j01','rob'].reduce(function(s,j){return s+countTasks(j);},0);
+    var done  = ['j02','j01','rob'].reduce(function(s,j){return s+countDone(j);},0);
+    var pct   = total===0?0:Math.round(done/total*100);
+    document.getElementById('bar-overall').style.width = pct+'%';
+    document.getElementById('pct-overall').textContent = pct+'%';
+    document.getElementById('done-overall').textContent = done+' / '+total+' tasks complete';
+  }
+
+  function toggleMonth(id) { document.getElementById('month-' + id).classList.toggle('open'); }
+
+  window.addEventListener('load', () => {
+    ['j02','j01','rob'].forEach(j => {
+      const total = countTasks(j);
+      document.getElementById('done-'+j).textContent = '0 / ' + total + ' tasks done';
+    });
+    updateOverall();
+  });
+</script>
+</body>
+</html>

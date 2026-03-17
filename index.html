@@ -541,7 +541,35 @@
 
 <script>
   let activeFilter = 'all';
+  const STORAGE_KEY = 'timeline_done_tasks';
 
+  // --- Persistence helpers ---
+  function getAllTasks() {
+    return Array.from(document.querySelectorAll('.task-pill'));
+  }
+
+  function getTaskIndex(el) {
+    return getAllTasks().indexOf(el);
+  }
+
+  function saveProgress() {
+    const done = getAllTasks()
+      .map((el, i) => el.classList.contains('done') ? i : null)
+      .filter(i => i !== null);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(done));
+  }
+
+  function loadProgress() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      const tasks = getAllTasks();
+      saved.forEach(i => {
+        if (tasks[i]) tasks[i].classList.add('done');
+      });
+    } catch(e) {}
+  }
+
+  // --- Progress display ---
   function countTasks(j) { return document.querySelectorAll('.task-pill[data-journal="'+j+'"]').length; }
   function countDone(j)  { return document.querySelectorAll('.task-pill[data-journal="'+j+'"].done').length; }
 
@@ -551,7 +579,6 @@
     document.getElementById('bar-'+j).style.width = pct + '%';
     document.getElementById('pct-'+j).textContent = pct + '%';
     document.getElementById('done-'+j).textContent = done + ' / ' + total + ' tasks done';
-    // pulse card
     const card = document.getElementById('card-'+j);
     const colors = {j02:'#FF6B35',j01:'#4A90D9',rob:'#27AE7A'};
     card.style.boxShadow = '0 0 0 3px ' + colors[j] + '44, 0 8px 40px rgba(0,0,0,0.12)';
@@ -559,15 +586,28 @@
     updateOverall();
   }
 
+  function updateAllProgress() {
+    ['j02','j01','rob'].forEach(j => {
+      const total = countTasks(j), done = countDone(j);
+      const pct = total === 0 ? 0 : Math.round(done / total * 100);
+      document.getElementById('bar-'+j).style.width = pct + '%';
+      document.getElementById('pct-'+j).textContent = pct + '%';
+      document.getElementById('done-'+j).textContent = done + ' / ' + total + ' tasks done';
+    });
+    updateOverall();
+  }
+
+  // --- Task toggle ---
   function toggleTask(el) {
     const j = el.dataset.journal;
     const wasDone = el.classList.contains('done');
     el.classList.toggle('done');
+    saveProgress();
     updateProgress(j);
-    const rawText = el.childNodes[1] ? el.childNodes[1].textContent.trim() : '';
     showToast(wasDone ? '↩  Marked undone' : '✓  Task complete!');
   }
 
+  // --- Toast ---
   let toastTimer;
   function showToast(msg) {
     const t = document.getElementById('toast');
@@ -577,6 +617,7 @@
     toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
   }
 
+  // --- Filter ---
   function setFilter(filter) {
     activeFilter = filter;
     document.querySelectorAll('.chip').forEach(c => c.classList.toggle('inactive', c.dataset.filter !== filter));
@@ -588,6 +629,7 @@
     });
   }
 
+  // --- Overall progress ---
   function updateOverall() {
     var total = ['j02','j01','rob'].reduce(function(s,j){return s+countTasks(j);},0);
     var done  = ['j02','j01','rob'].reduce(function(s,j){return s+countDone(j);},0);
@@ -599,12 +641,10 @@
 
   function toggleMonth(id) { document.getElementById('month-' + id).classList.toggle('open'); }
 
+  // --- On load: restore saved progress ---
   window.addEventListener('load', () => {
-    ['j02','j01','rob'].forEach(j => {
-      const total = countTasks(j);
-      document.getElementById('done-'+j).textContent = '0 / ' + total + ' tasks done';
-    });
-    updateOverall();
+    loadProgress();
+    updateAllProgress();
   });
 </script>
 </body>
